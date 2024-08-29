@@ -1,0 +1,31 @@
+﻿<!-- This page also works for the Admin/Bartender account, but the functionality is hidden as the owner of the bar/ user of the application would be familiarized with their custom made Admin account -->
+@{
+    ViewBag.Title = "Login";
+}
+
+<!-- Welcome message for the login page -->
+<p class="welcome-message">Welcome to Zack's Daiqs! Please log in to start ordering your favorite drinks!</p>
+
+<h2>Login</h2>
+
+<!-- Login form -->
+<form method="post" action="/Account/Index">
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required />
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
+    </div>
+    <button type="submit">Login</button>
+</form>
+
+<!-- Display error message if any -->
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <p style="color:red;">@ViewBag.ErrorMessage</p>
+}
+
+<!-- Link to registration page -->
+<p>Don't have an account? <a href="/Account/Register">Register here</a></p>

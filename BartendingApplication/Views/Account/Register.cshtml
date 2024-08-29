@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Register</h2>
+
+<!-- Registration form -->
+<form method="post" action="/Account/Register">
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required />
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
+    </div>
+    <button type="submit">Register</button>
+</form>
+
+<!-- Display error message if any -->
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <p style="color:red;">@ViewBag.ErrorMessage</p>
+}
+
+<!-- Link to login page -->
+<p>Already have an account? <a href="/Account/Index">Login here</a></p>

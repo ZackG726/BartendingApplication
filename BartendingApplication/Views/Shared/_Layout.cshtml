@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - Zack's Daiqs</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    @await RenderSectionAsync("Styles", required: false) <!-- Optional Styles section for additional CSS -->
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <h1 class="site-title">Zack's Daiqs</h1>
+
+            <!-- Conditional rendering for user info and logout button -->
+            @if (!(ViewContext.RouteData.Values["controller"].ToString() == "Account" &&
+            ViewContext.RouteData.Values["action"].ToString() == "Index"))
+            {
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <!-- Display user info and logout button if authenticated -->
+                    <div class="user-info">
+                        <p><span class="label">Logged in as:</span> <span class="username">@User.Identity.Name</span></p>
+                        <p><span class="label">Role:</span> <span class="role">@(User.IsInRole("Bartender") ? "Bartender" : "Customer")</span></p>
+                    </div>
+                    <nav class="header-nav">
+                        <a href="@Url.Action("Logout", "Account")" class="logout-button">Logout</a>
+                    </nav>
+                }
+                else
+                {
+                    <!-- Display login button if not authenticated -->
+                    <nav class="header-nav">
+                        <a href="@Url.Action("Index", "Account")" class="login-button">Login</a>
+                    </nav>
+                }
+            }
+        </div>
+    </header>
+
+    <div class="container">
+        @RenderBody() <!-- Main content of the page -->
+    </div>
+
+    <footer>
+        <p>&copy; 2024 - Zack's Daiqs</p>
+    </footer>
+
+    @await RenderSectionAsync("Scripts", required: false) <!-- Optional Scripts section for additional JavaScript -->
+</body>
+</html>

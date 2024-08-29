@@ -1,0 +1,37 @@
+﻿@model IEnumerable<BartendingApplication.Models.CocktailOrder>
+
+<div class="container">
+    <h2>Order Queue</h2>
+
+    <!-- Order List Section -->
+    <div class="order-list">
+        @foreach (var order in Model)
+        {
+            <div class="order-item">
+                <div class="order-details">
+                    <h3>@order.CocktailName</h3>
+                    <p>Status: @order.Status</p>
+                    <p><strong>Username:</strong> @order.UserName</p>
+                </div>
+
+                <div class="order-actions">
+                    <!-- Advance Status Form -->
+                    @if (order.Status != "Order Completed")
+                    {
+                        <form asp-action="AdvanceStatus" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@order.Id" />
+                            <input type="hidden" name="currentStatus" value="@order.Status" />
+                            <button type="submit" class="btn btn-primary">Next</button>
+                        </form>
+                    }
+
+                    <!-- Delete Form -->
+                    <form asp-action="Delete" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@order.Id" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</div>

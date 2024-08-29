@@ -1,0 +1,46 @@
+﻿@model IEnumerable<BartendingApplication.Models.CocktailMenu>
+
+@{
+    ViewData["Title"] = "Order Drinks";
+}
+
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+
+    <!-- Menu Section -->
+    <div class="menu">
+        @foreach (var drink in Model)
+        {
+            <div class="menu-item-container">
+                <div class="menu-item">
+                    <h3>@drink.Name</h3>
+                    <p>@drink.Description</p>
+                    <p><strong>Price:</strong> $@drink.Price.ToString("0.00")</p>
+                </div>
+                <!-- Order Form -->
+                <form asp-action="Order" method="post" class="order-form">
+                    <input type="hidden" name="id" value="@drink.Id" />
+                    <button type="submit" class="btn btn-primary">Order</button>
+                </form>
+            </div>
+        }
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="pagination">
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            <a href="@Url.Action("Index", new { page = i })" class="pagination-btn @(i == ViewBag.CurrentPage ? "active" : "")">@i</a>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @if (ViewData["SuccessMessage"] != null)
+    {
+        <script>
+            // Display success message in an alert box
+            alert('@ViewData["SuccessMessage"]');
+        </script>
+    }
+}
